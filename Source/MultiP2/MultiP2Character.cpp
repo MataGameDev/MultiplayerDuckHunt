@@ -30,6 +30,7 @@ void AMultiP2Character::OnRep_CurrentHealth()
 	OnHealthUpdate();
 }
 
+/*
 void AMultiP2Character::OnHealthUpdate()
 {
 	//Client-specific functionality
@@ -66,10 +67,10 @@ void AMultiP2Character::OnHealthUpdate()
 	}
 	
 	//Functions that occur on all machines. 
-	/*  
-		Any special functionality that should occur as a result of damage or death should be placed here. 
-	*/
+	  	Any special functionality that should occur as a result of damage or death should be placed here. 
+	
 }
+*/
 
 //////////////////////////////////////////////////////////////////////////
 // AMultiP2Character

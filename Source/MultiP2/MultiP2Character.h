@@ -74,6 +74,7 @@ protected:
 	UFUNCTION()
 	void OnRep_CurrentHealth();
 	/** Response to health being updated. Called on the server immediately after modification, and on clients in response to a RepNotify*/
+	UFUNCTION(BlueprintImplementableEvent, Category = "Health")
 	void OnHealthUpdate();
 			
 
