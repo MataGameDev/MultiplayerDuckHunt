@@ -6,8 +6,11 @@
 #include "MultiplayerSessionSubsystem.h"
 #include "Components/Button.h"
 
-void UMenu::MenuSetup()
+void UMenu::MenuSetup(int32 NumberOfPublicConnections, FString TypeOfMatch)
 {
+	NumPublicConnections = NumberOfPublicConnections;
+	MatchType = TypeOfMatch;
+	
 	AddToViewport();
 	SetVisibility(ESlateVisibility::Visible);
 	bIsFocusable = true;
@@ -55,6 +58,12 @@ bool UMenu::Initialize()
 	return true;
 }
 
+void UMenu::NativeDestruct()
+{
+	MenuDismount();
+	Super::NativeDestruct();
+}
+
 void UMenu::HostButtonClicked()
 {
 	if (GEngine)
@@ -69,7 +78,7 @@ void UMenu::HostButtonClicked()
 
 	if(MultiplayerSessionSubsystem)
 	{
-		MultiplayerSessionSubsystem->CreateSession(4, FString("FreeForAll"));
+		MultiplayerSessionSubsystem->CreateSession(NumPublicConnections, MatchType);
 
 		//Travel to Lobby
 		UWorld* World = GetWorld();
@@ -90,5 +99,21 @@ void UMenu::JoinButtonClicked()
 			FColor::Red,
 			FString(TEXT("Join"))
 		);
+	}
+}
+
+void UMenu::MenuDismount()
+{
+	RemoveFromParent();
+	UWorld* World = GetWorld();
+	if(World)
+	{
+		APlayerController* PlayerController = World->GetFirstPlayerController();
+		if(PlayerController)
+		{
+			FInputModeGameOnly InputModeData;
+			PlayerController->SetInputMode(InputModeData);
+			PlayerController->SetShowMouseCursor(false);
+		}
 	}
 }
