@@ -94,7 +94,7 @@ void UMenu::OnCreateSession(bool bWasSuccessful)
 		UWorld* World = GetWorld();
 		if (World)
 		{
-			World->ServerTravel(FString("/Game/Lobby/SecondLobby?listen"));
+			World->ServerTravel(FString("/Game/_Developers/Mata/DuckHunt?listen"));
 			
 		}
 	} else
